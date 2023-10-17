@@ -20,21 +20,34 @@ public class App
 
 
             //apertura del stream input e output
-            DataOutputStream out = new DataOutputStream(s.getOutputStream());
-            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            DataOutputStream out = new DataOutputStream(s.getOutputStream());//output
+            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));//input
+
+            //booleano che ferma il dowhile quando il numeor viene indovinato
              boolean indovinato = false;
 
-             Scanner scrivi = new Scanner(System.in);
 
+             //inizializzazione della classe scanner per poter scrivere da tastiera 
+             Scanner scrivi = new Scanner(System.in);
+             System.out.println("il dispositivo è stato collegato");
+
+
+
+             //ciclo per la lettura dei numeri
             do {
 
+
                 System.out.println("inserire un numero:");
+                //prendo il valore dalla tastiera
                 int val = scrivi.nextInt();
 
+                //invio il valore sullo stream
                 out.writeBytes(val + "\n");
 
+                //prendo il valore (elaborato) dal server
                 int temp = Integer.parseInt(in.readLine());
 
+                //eseguo i vari controlli per vedere la corretezza
                 if(temp == 1){
                     System.out.println("il valore inserito è troppo piccolo");
                 }else if (temp == 2) {
@@ -47,6 +60,7 @@ public class App
                 
                 
             } while (!indovinato);
+            //CHIUDO LA SOCKET
             s.close();
 
         } catch (Exception e) {
